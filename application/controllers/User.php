@@ -3,19 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
 
-/**
- * @SWG\Swagger(
- *     schemes={"https"},
- *     host="testesphp-tifabio.c9.io",
- *     basePath="/crudrest",
- *     @SWG\Info(
- *         version="0.0.1",
- *         title="CRUD REST",
- *         description="Teste de crud em webservice restfull"
- *         
- *     )
- * )
- */
 class User extends REST_Controller
 {
     public function __construct()
@@ -31,10 +18,21 @@ class User extends REST_Controller
      *     summary="Retorna a lista de usuários",
      *     description="Retorna a lista de usuários",
      *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *         description="Token do usuário",
+     *         in="header",
+     *         name="authorization",
+     *         required=true,
+     *         type="string"
+     *     ),
      *     @SWG\Response(
      *         response=200,
      *         description="Retorna a lista de usuários",
      *         @SWG\Schema(ref="#/definitions/UserModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="403",
+     *         description="Acesso Negado"
      *     )
      * )
      * @SWG\Get(
@@ -42,6 +40,13 @@ class User extends REST_Controller
      *     summary="Busca usuário pelo ID",
      *     description="Retorna o usuário de acordo com o ID informado",
      *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *         description="Token do usuário",
+     *         in="header",
+     *         name="authorization",
+     *         required=true,
+     *         type="string"
+     *     ),
      *     @SWG\Parameter(
      *         description="ID do usuário",
      *         in="path",
@@ -53,6 +58,10 @@ class User extends REST_Controller
      *         response=200,
      *         description="Retorna o usuário",
      *         @SWG\Schema(ref="#/definitions/UserModel")
+     *     ),
+     *     @SWG\Response(
+     *         response="403",
+     *         description="Acesso Negado"
      *     ),
      *     @SWG\Response(
      *         response="404",
@@ -96,6 +105,13 @@ class User extends REST_Controller
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
+     *         description="Token do usuário",
+     *         in="header",
+     *         name="authorization",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
      *         name="body",
      *         in="body",
      *         description="Dados do usuário",
@@ -110,6 +126,10 @@ class User extends REST_Controller
      *     @SWG\Response(
      *         response=400,
      *         description="Campos obrigatórios não enviados"
+     *     ),
+     *     @SWG\Response(
+     *         response="403",
+     *         description="Acesso Negado"
      *     )
      * )
      */
@@ -119,6 +139,7 @@ class User extends REST_Controller
         $this->user->email = $this->post('email');
         $this->user->sexo = $this->post('sexo');
         $this->user->nascimento = $this->post('nascimento');
+        $this->user->senha = md5($this->post('senha'));
         
         $this->form_validation->set_data(get_object_vars($this->user));
         $this->form_validation->set_rules('nome', 'Nome', 'required');
@@ -148,6 +169,13 @@ class User extends REST_Controller
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
+     *         description="Token do usuário",
+     *         in="header",
+     *         name="authorization",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
      *         description="ID do usuário",
      *         in="path",
      *         name="id",
@@ -171,6 +199,10 @@ class User extends REST_Controller
      *         description="Campos obrigatórios não enviados"
      *     ),
      *     @SWG\Response(
+     *         response="403",
+     *         description="Acesso Negado"
+     *     ),
+     *     @SWG\Response(
      *         response="404",
      *         description="Nenhum usuário encontrado com o identificador informado"
      *     )
@@ -191,6 +223,7 @@ class User extends REST_Controller
         $this->user->email = $this->put('email');
         $this->user->sexo = $this->put('sexo');
         $this->user->nascimento = $this->put('nascimento');
+        $this->user->senha = md5($this->put('senha'));
         
         $this->form_validation->set_data(get_object_vars($this->user));
         $this->form_validation->set_rules('nome', 'Nome', 'required');
@@ -220,6 +253,13 @@ class User extends REST_Controller
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
+     *         description="Token do usuário",
+     *         in="header",
+     *         name="authorization",
+     *         required=true,
+     *         type="string"
+     *     ),
+     *     @SWG\Parameter(
      *         description="ID do usuário",
      *         in="path",
      *         name="id",
@@ -229,6 +269,10 @@ class User extends REST_Controller
      *     @SWG\Response(
      *         response=200,
      *         description="Usuário removido com sucesso"
+     *     ),
+     *     @SWG\Response(
+     *         response="403",
+     *         description="Acesso Negado"
      *     ),
      *     @SWG\Response(
      *         response="404",

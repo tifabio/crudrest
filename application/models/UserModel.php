@@ -33,16 +33,31 @@ class UserModel extends CI_Model
      * @var string
      */
     public $nascimento;
+    /**
+     * @SWG\Property()
+     * @var string
+     */
+    public $senha;
     
     public function getAll() 
     {
+        $this->db->select('id, nome, email, sexo, nascimento');
         $query = $this->db->get(self::table);
         return $query->result();
     }
     
     public function getById() 
     {
+        $this->db->select('id, nome, email, sexo, nascimento');
         $this->db->where('id', $this->id);
+        $query = $this->db->get(self::table);
+        return $query->row();
+    }
+    
+    public function getAuth()
+    {
+        $this->db->where('email', $this->email);
+        $this->db->where('senha', $this->senha);
         $query = $this->db->get(self::table);
         return $query->row();
     }
@@ -50,6 +65,7 @@ class UserModel extends CI_Model
     public function save()
     {
         $data = get_object_vars($this);
+        if(!$data['senha']) unset($data['senha']);
         
         if($data['id'] > 0) {
             $this->db->where('id', $data['id']);
