@@ -139,7 +139,9 @@ class User extends REST_Controller
         $this->user->email = $this->post('email');
         $this->user->sexo = $this->post('sexo');
         $this->user->nascimento = $this->post('nascimento');
-        $this->user->senha = md5($this->post('senha'));
+        if(trim($this->post('senha')) != '') {
+            $this->user->senha = md5($this->post('senha'));            
+        }
         
         $this->form_validation->set_data(get_object_vars($this->user));
         $this->form_validation->set_rules('nome', 'Nome', 'required');
@@ -223,7 +225,9 @@ class User extends REST_Controller
         $this->user->email = $this->put('email');
         $this->user->sexo = $this->put('sexo');
         $this->user->nascimento = $this->put('nascimento');
-        $this->user->senha = md5($this->put('senha'));
+        if(trim($this->put('senha')) != '') {
+            $this->user->senha = md5($this->put('senha'));            
+        }
         
         $this->form_validation->set_data(get_object_vars($this->user));
         $this->form_validation->set_rules('nome', 'Nome', 'required');

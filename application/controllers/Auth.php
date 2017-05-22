@@ -6,8 +6,8 @@ require APPPATH . '/libraries/REST_Controller.php';
 /**
  * @SWG\Swagger(
  *     schemes={"https"},
- *     host="testesphp-tifabio.c9.io",
- *     basePath="/crudrest",
+ *     host="restcrud.herokuapp.com",
+ *     basePath="/",
  *     @SWG\Info(
  *         version="0.0.1",
  *         title="CRUD REST",
