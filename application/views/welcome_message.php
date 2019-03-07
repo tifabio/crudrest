@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<metra http-equiv="refresh" content="1;URL=https://restcrud.herokuapp.com/public"> 
+	<meta http-equiv="refresh" content="1;URL=https://restcrud.herokuapp.com/public"> 
 </head>
 <body>
 </body>
