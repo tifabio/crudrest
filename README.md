@@ -6,4 +6,4 @@ API gerar swagger: http://restcrud.herokuapp.com/swagger.php
 
 API documentação swagger: https://app.swaggerhub.com/apis/tifabio/crud-rest/0.0.1
 
-API interface React: http://restcrud.herokuapp.com/public
+API interface React: http://restcrud.herokuapp.com
